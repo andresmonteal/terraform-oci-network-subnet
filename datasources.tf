@@ -12,7 +12,7 @@ data "oci_core_security_lists" "sec_lists" {
   compartment_id = var.compartment_id
 
   #Optional
-  display_name = var.security_list_display_name
+  display_name = var.sec_ls_disp_name
   vcn_id       = local.vcn_id
 }
 

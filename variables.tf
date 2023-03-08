@@ -51,7 +51,7 @@ variable "freeform_tags" {
   default     = {}
 }
 
-variable "security_list_display_name" {
+variable "sec_ls_disp_name" {
   description = "A user-friendly name. Does not have to be unique, and it's changeable"
   type        = string
   default     = null
