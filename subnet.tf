@@ -8,7 +8,7 @@ locals {
   security_list_ids    = [data.oci_core_security_lists.sec_lists.security_lists[0].id]
   default_freeform_tags = {
     terraformed = "Please do not edit manually"
-    module      = "module:oracle-terraform-oci-network-subnet"
+    module      = "oracle-terraform-oci-network-subnet"
   }
   merged_freeform_tags = merge(var.freeform_tags, local.default_freeform_tags)
 }
