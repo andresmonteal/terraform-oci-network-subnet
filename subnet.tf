@@ -29,7 +29,4 @@ resource "oci_core_subnet" "vcn_subnet" {
   prohibit_public_ip_on_vnic = var.type == "public" ? false : true
   security_list_ids          = local.security_list_ids
 
-  lifecycle {
-    ignore_changes = [defined_tags, freeform_tags]
-  }
 }
