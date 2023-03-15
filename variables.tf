@@ -56,3 +56,11 @@ variable "sec_ls_disp_name" {
   type        = string
   default     = null
 }
+
+# route table
+
+variable "route_table" {
+  description = "(Optional) add a route table name"
+  type        = string
+  default     = null
+}
