@@ -32,7 +32,7 @@ resource "oci_core_subnet" "vcn_subnet" {
 }
 
 module "route_table" {
-  source = "../terraform-oci-route-table"
+  source = "git@github.com:andresmonteal/terraform-oci-route-table.git?ref=v0.1.0"
 
   display_name   = var.route_table
   compartment_id = var.compartment_id
