@@ -61,6 +61,6 @@ variable "sec_ls_disp_name" {
 
 variable "route_table" {
   description = "(Optional) add a route table name"
-  type        = string
-  default     = null
+  type        = map(any)
+  default     = {}
 }

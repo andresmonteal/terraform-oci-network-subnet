@@ -32,14 +32,15 @@ resource "oci_core_subnet" "vcn_subnet" {
 }
 
 module "route_table" {
-  source = "git@github.com:andresmonteal/terraform-oci-route-table.git?ref=v0.1.0"
+  source   = "git@github.com:andresmonteal/terraform-oci-route-table.git?ref=v0.1.1"
+  for_each = var.route_table
 
-  display_name   = var.route_table
+  display_name   = each.key
   compartment_id = var.compartment_id
   subnet_id      = oci_core_subnet.vcn_subnet.id
   vcn_id         = local.vcn_id
   defined_tags   = var.defined_tags == null ? local.defined_tags : var.defined_tags
   freeform_tags  = local.merged_freeform_tags
 
-  count = length(var.route_table) > 0 ? 1 : 0
+  rules = can(each.value["rules"]) ? each.value["rules"] : {}
 }
