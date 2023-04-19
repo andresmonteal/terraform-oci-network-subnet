@@ -32,7 +32,7 @@ resource "oci_core_subnet" "vcn_subnet" {
 }
 
 module "route_table" {
-  source   = "git::ssh://devops.scmservice.us-ashburn-1.oci.oraclecloud.com/namespaces/id9de6bj2yv6/projects/claro-devops/repositories/terraform-oci-route-table?ref=v0.3.1"
+  source   = "git::ssh://devops.scmservice.us-ashburn-1.oci.oraclecloud.com/namespaces/id9de6bj2yv6/projects/claro-devops/repositories/terraform-oci-route-table?ref=v0.3.2"
   for_each = var.route_table
 
   display_name   = each.key
