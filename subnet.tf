@@ -3,7 +3,6 @@
 
 locals {
   dhcp_default_options = data.oci_core_dhcp_options.dhcp_options.options.0.id
-  vcn_id               = data.oci_core_vcns.vcns.virtual_networks[0].id
   security_list_ids    = [data.oci_core_security_lists.sec_lists.security_lists[0].id]
   default_freeform_tags = {
     terraformed = "Please do not edit manually"
@@ -17,7 +16,7 @@ resource "oci_core_subnet" "vcn_subnet" {
   #Required
   cidr_block     = var.cidr_block
   compartment_id = var.compartment_id
-  vcn_id         = local.vcn_id
+  vcn_id         = var.vcn_id
 
 
   defined_tags               = var.defined_tags
@@ -37,7 +36,7 @@ module "route_table" {
   display_name   = each.key
   compartment_id = var.compartment_id
   subnet_ids     = [oci_core_subnet.vcn_subnet.id]
-  vcn_id         = local.vcn_id
+  vcn_id         = var.vcn_id
   defined_tags   = var.defined_tags
   freeform_tags  = local.merged_freeform_tags
 

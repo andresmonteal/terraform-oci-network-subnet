@@ -13,11 +13,10 @@ variable "cidr_block" {
   type        = string
 }
 
-variable "vcn_name" {
+variable "vcn_id" {
   description = "(Required) The VCN name to contain the subnet."
   type        = string
 }
-
 
 # optional
 
