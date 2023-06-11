@@ -2,10 +2,16 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
 # required
+variable "tenancy_ocid" {
+  description = "(Required) (Updatable) The OCID of the root compartment."
+  type        = string
+  default     = null
+}
 
 variable "compartment_id" {
   description = "(Required) (Updatable) The OCID of the compartment to contain the subnet."
   type        = string
+  default     = null
 }
 
 variable "cidr_block" {
@@ -13,9 +19,22 @@ variable "cidr_block" {
   type        = string
 }
 
-variable "vcn_id" {
-  description = "(Required) The VCN name to contain the subnet."
+variable "compartment" {
+  description = "compartment name where to create all resources"
   type        = string
+  default     = null
+}
+
+variable "vcn_id" {
+  type        = string
+  description = "The VCN ID where the Security List(s) should be created."
+  default     = null
+}
+
+variable "vcn_name" {
+  type        = string
+  description = "The VCN name where the Security List(s) should be created."
+  default     = null
 }
 
 # optional
@@ -50,16 +69,18 @@ variable "freeform_tags" {
   default     = {}
 }
 
-variable "sec_ls_disp_name" {
-  description = "A user-friendly name. Does not have to be unique, and it's changeable"
-  type        = string
-  default     = null
-}
-
 # route table
 
 variable "route_table" {
   description = "(Optional) add a route table name"
+  type        = map(any)
+  default     = {}
+}
+
+# route table
+
+variable "security_lists" {
+  description = "(Optional) add a security list"
   type        = map(any)
   default     = {}
 }

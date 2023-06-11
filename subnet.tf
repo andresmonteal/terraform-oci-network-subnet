@@ -2,8 +2,10 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
 locals {
+  #general defaults
+  compartment_id       = try(data.oci_identity_compartments.compartment[0].compartments[0].id, var.compartment_id)
+  vcn_id               = try(data.oci_core_vcns.vcns.virtual_networks[0].id, var.vcn_id)
   dhcp_default_options = data.oci_core_dhcp_options.dhcp_options.options.0.id
-  security_list_ids    = [data.oci_core_security_lists.sec_lists.security_lists[0].id]
   default_freeform_tags = {
     terraformed = "Please do not edit manually"
     module      = "oracle-terraform-oci-network-subnet"
@@ -11,12 +13,22 @@ locals {
   merged_freeform_tags = merge(var.freeform_tags, local.default_freeform_tags)
 }
 
+module "security_lists" {
+  source = "git@github.com:andresmonteal/terraform-oci-network-sec-list.git?ref=v0.3.2"
+
+  compartment_id = local.compartment_id
+  vcn_id         = local.vcn_id
+  sn_name        = var.display_name
+
+  security_lists = var.security_lists
+}
+
 resource "oci_core_subnet" "vcn_subnet" {
 
   #Required
   cidr_block     = var.cidr_block
-  compartment_id = var.compartment_id
-  vcn_id         = var.vcn_id
+  compartment_id = local.compartment_id
+  vcn_id         = local.vcn_id
 
 
   defined_tags               = var.defined_tags
@@ -25,7 +37,7 @@ resource "oci_core_subnet" "vcn_subnet" {
   dns_label                  = var.dns_label
   freeform_tags              = local.merged_freeform_tags
   prohibit_public_ip_on_vnic = var.type == "public" ? false : true
-  security_list_ids          = local.security_list_ids
+  #security_list_ids          = [module.security_lists.id]
 
 }
 
@@ -34,9 +46,9 @@ module "route_table" {
   for_each = var.route_table
 
   display_name   = each.key
-  compartment_id = var.compartment_id
+  compartment_id = local.compartment_id
   subnet_ids     = [oci_core_subnet.vcn_subnet.id]
-  vcn_id         = var.vcn_id
+  vcn_id         = local.vcn_id
   defined_tags   = var.defined_tags
   freeform_tags  = local.merged_freeform_tags
 

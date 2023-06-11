@@ -1,17 +1,8 @@
-
-# Copyright (c) 2019, 2021, Oracle Corporation and/or affiliates.
+// Copyright (c) 2018, 2021, Oracle and/or its affiliates.
 
 variable "tenancy_ocid" {
-  description = "root compartment"
-  default     = "tenancy-id"
-}
-
-# general oci parameters
-
-variable "network_cmp" {
-  description = "compartment ocid where vcn and subnet are located"
+  description = "(Required) (Updatable) The OCID of the root compartment."
   type        = string
-  default     = "NETWORKING"
 }
 
 # subnet parameters
