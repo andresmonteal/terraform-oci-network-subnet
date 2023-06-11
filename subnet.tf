@@ -14,7 +14,7 @@ locals {
 }
 
 module "security_lists" {
-  source = "git@github.com:andresmonteal/terraform-oci-network-sec-list.git?ref=v0.3.2"
+  source = "git@github.com:andresmonteal/terraform-oci-network-sec-list.git?ref=v0.3.3"
 
   compartment_id = local.compartment_id
   vcn_id         = local.vcn_id
@@ -39,7 +39,7 @@ resource "oci_core_subnet" "vcn_subnet" {
   prohibit_public_ip_on_vnic = var.type == "public" ? false : true
   security_list_ids          = [for _, item in module.security_lists.id : item.id]
 
-  depends_on = [ module.security_lists ]
+  depends_on = [module.security_lists]
 }
 
 module "route_table" {
