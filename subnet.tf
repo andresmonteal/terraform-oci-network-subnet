@@ -39,6 +39,7 @@ resource "oci_core_subnet" "vcn_subnet" {
   prohibit_public_ip_on_vnic = var.type == "public" ? false : true
   security_list_ids          = [for _, item in module.security_lists.id : item.id]
 
+  depends_on = [ module.security_lists ]
 }
 
 module "route_table" {
