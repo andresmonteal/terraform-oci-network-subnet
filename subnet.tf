@@ -23,7 +23,7 @@ module "security_lists" {
   security_lists = var.security_lists
 }
 
-resource "oci_core_subnet" "vcn_subnet" {
+resource "oci_core_subnet" "main" {
 
   #Required
   cidr_block     = var.cidr_block
