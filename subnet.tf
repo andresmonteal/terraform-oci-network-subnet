@@ -47,7 +47,7 @@ module "route_table" {
 
   display_name   = each.key
   compartment_id = local.compartment_id
-  subnet_ids     = [oci_core_subnet.vcn_subnet.id]
+  subnet_ids     = [oci_core_subnet.main.id]
   vcn_id         = local.vcn_id
   defined_tags   = var.defined_tags
   freeform_tags  = local.merged_freeform_tags
