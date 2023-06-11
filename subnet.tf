@@ -37,7 +37,7 @@ resource "oci_core_subnet" "vcn_subnet" {
   dns_label                  = var.dns_label
   freeform_tags              = local.merged_freeform_tags
   prohibit_public_ip_on_vnic = var.type == "public" ? false : true
-  security_list_ids          = [module.security_lists.id]
+  security_list_ids          = [tostring(module.security_lists.id)]
 
 }
 
