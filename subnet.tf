@@ -43,7 +43,7 @@ resource "oci_core_subnet" "vcn_subnet" {
 }
 
 module "route_table" {
-  source   = "git@github.com:andresmonteal/terraform-oci-route-table.git?ref=v0.4.1"
+  source   = "git@github.com:andresmonteal/terraform-oci-route-table.git?ref=v0.4.2"
   for_each = var.route_table
 
   display_name   = each.key
