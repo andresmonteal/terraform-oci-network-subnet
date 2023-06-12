@@ -7,8 +7,18 @@ subnets = {
     dns_label    = "apppri"
     type         = "private"
     defined_tags = {}
-    route_table  = {}
-  },
+    route_table = {
+      "rt-db-np-pri" = {
+        rules = {
+          ng_rules = [{
+            ng_name     = "nat-gateway"
+            description = "all addresses to nat gateway"
+            destination = "0.0.0.0/0"
+          }]
+        }
+      }
+    }
+  }
   sn-db-np-pri = {
     compartment  = "cmp-networking"
     vcn          = "vcn-ash-app-np"
