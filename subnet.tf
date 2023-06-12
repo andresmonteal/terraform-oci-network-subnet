@@ -14,11 +14,11 @@ locals {
 }
 
 module "security_lists" {
-  source = "git@github.com:andresmonteal/terraform-oci-network-sec-list.git?ref=v0.3.3"
+  source = "git@github.com:andresmonteal/terraform-oci-network-sec-list.git?ref=v0.3.5"
 
-  compartment_id = local.compartment_id
-  vcn_id         = local.vcn_id
-  sn_name        = var.display_name
+  compartment_id             = local.compartment_id
+  vcn_id                     = local.vcn_id
+  default_security_list_name = var.default_security_list_name
 
   security_lists = var.security_lists
 }

@@ -84,3 +84,9 @@ variable "security_lists" {
   type        = map(any)
   default     = {}
 }
+
+variable "default_security_list_name" {
+  type        = string
+  description = "The default security list name."
+  default     = "sl-default"
+}
