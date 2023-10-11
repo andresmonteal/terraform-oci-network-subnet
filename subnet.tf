@@ -14,7 +14,7 @@ locals {
 }
 
 module "security_lists" {
-  source = "git@github.com:andresmonteal/terraform-oci-network-sec-list.git?ref=v0.3.5"
+  source = "git@github.com:andresmonteal/terraform-oci-network-sec-list.git?ref=v0.3.6"
 
   compartment_id             = local.compartment_id
   vcn_id                     = local.vcn_id
@@ -43,7 +43,8 @@ resource "oci_core_subnet" "vcn_subnet" {
 }
 
 module "route_table" {
-  source   = "git@github.com:andresmonteal/terraform-oci-route-table.git?ref=v0.4.2"
+  source   = "git@github.com:andresmonteal/terraform-oci-route-table.git?ref=v0.5.4"
+
   for_each = var.route_table
 
   display_name   = each.key
