@@ -4,7 +4,7 @@
 locals {
   #general defaults
   compartment_id       = try(data.oci_identity_compartments.compartment[0].compartments[0].id, var.compartment_id)
-  vcn_id               = try(data.oci_core_vcns.vcns.virtual_networks[0].id, var.vcn_id)
+  vcn_id               = try(data.oci_core_vcns.vcns[0].virtual_networks[0].id, var.vcn_id)
   dhcp_default_options = data.oci_core_dhcp_options.dhcp_options.options.0.id
   default_freeform_tags = {
     terraformed = "Please do not edit manually"
