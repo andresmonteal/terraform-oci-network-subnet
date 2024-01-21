@@ -69,24 +69,8 @@ variable "freeform_tags" {
   default     = {}
 }
 
-# route table
-
-variable "route_table" {
-  description = "(Optional) add a route table name"
-  type        = map(any)
-  default     = {}
-}
-
-# route table
-
-variable "security_lists" {
-  description = "(Optional) add a security list"
-  type        = map(any)
-  default     = {}
-}
-
-variable "default_security_list_name" {
-  type        = string
-  description = "The default security list name."
-  default     = "sl-default"
+variable "security_list_ids" {
+  description = "(Optional) (Updatable) The OCIDs of the security list or lists the subnet will use"
+  type        = list(any)
+  default     = []
 }

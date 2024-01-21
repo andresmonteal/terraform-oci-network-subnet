@@ -13,16 +13,6 @@ locals {
   merged_freeform_tags = merge(var.freeform_tags, local.default_freeform_tags)
 }
 
-module "security_lists" {
-  source = "git@github.com:andresmonteal/terraform-oci-network-sec-list.git?ref=v0.3.6"
-
-  compartment_id             = local.compartment_id
-  vcn_id                     = local.vcn_id
-  default_security_list_name = var.default_security_list_name
-
-  security_lists = var.security_lists
-}
-
 resource "oci_core_subnet" "vcn_subnet" {
 
   #Required
@@ -37,22 +27,5 @@ resource "oci_core_subnet" "vcn_subnet" {
   dns_label                  = var.dns_label
   freeform_tags              = local.merged_freeform_tags
   prohibit_public_ip_on_vnic = var.type == "public" ? false : true
-  security_list_ids          = [for _, item in module.security_lists.id : item.id]
-
-  depends_on = [module.security_lists]
-}
-
-module "route_table" {
-  source   = "git@github.com:andresmonteal/terraform-oci-route-table.git?ref=v0.5.4"
-
-  for_each = var.route_table
-
-  display_name   = each.key
-  compartment_id = local.compartment_id
-  subnet_ids     = [oci_core_subnet.vcn_subnet.id]
-  vcn_id         = local.vcn_id
-  defined_tags   = var.defined_tags
-  freeform_tags  = local.merged_freeform_tags
-
-  rules = can(each.value["rules"]) ? each.value["rules"] : {}
+  security_list_ids          = var.security_list_ids
 }
